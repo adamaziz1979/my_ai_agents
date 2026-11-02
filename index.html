@@ -324,7 +324,7 @@ $("team").innerHTML = AGENTS.map((a, i) => `
   <li class="member">
     ${face(a, "pic")}
     <div><h3><button type="button" class="open" data-i="${i}" aria-label="Show ${esc(a.name)}'s profile">${esc(a.name)}</button><span class="badge">${esc(a.type)}</span></h3>
-    <div class="role">${esc(a.role)}</div><p>${esc(a.one)}</p></div>
+    <div class="role">${esc(a.role)}</div></div>
   </li>`).join("");
 
 // Ring spots
