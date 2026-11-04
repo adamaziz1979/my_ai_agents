@@ -173,6 +173,8 @@ h2 { font-size: 1.35rem; margin: 56px 0 6px; }
 .facts dd { margin: 0; font-size: .95rem; overflow-wrap: anywhere; }
 .facts code { display: inline-block; margin: 2px 0; font-size: .85em; background: var(--accent-soft); color: var(--text); padding: 1px 6px; border-radius: 6px; }
 .facts dd b { font-weight: 600; }
+.facts .outs { margin: 0; padding-left: 1.1rem; }
+.facts .outs li { margin: 2px 0; }
 .facts .reason { display: block; color: var(--muted); font-size: .88rem; margin-top: 2px; }
 .fade { animation: fade .5s ease; }
 @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -254,6 +256,7 @@ const AGENTS = [
     command: ["/kpi-creator", "/kpi-test"], skills: ["kpi-creator", "kpi-token-report"],
     tools: [], toolsNote: "All tools, no limit set. Mainly Agent (starts each stage agent), files, Bash and the Browser pane for previews.", browser: [],
     scripts: ["stage_close.py", "token_report.py", "build_cards.py", "greeting_hook.py", "progress_hook.py"],
+    outputs: ["Head of Data Feedback Log (Keep, Change, Decision at every gate)", "Outputs in Order page for each run", "Stakeholder Brief Coverage Check", "Sign-off and Handover", "Status file and token report line", "Sealed check score and 3 lessons (test runs)"],
     personality: "The mother hen of the team. Late 40s, ex delivery lead for two banks and a hospital network. Calm, organised and firm on the gates.",
     model: "Default",
     whyType: "Every stage ends with your approval, so she talks to you directly.",
@@ -263,6 +266,7 @@ const AGENTS = [
     command: ["/kpi-live", "started by Ovy"], skills: ["kpi-creator"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ToolSearch", "SendMessage"], toolsNote: "", browser: [],
     scripts: ["check_spec.py", "meeting_chat.py", "md_preview.py"],
+    outputs: ["Business Requirements (Top 5 KPIs, SMART targets, draft measures and data mapping)", "Project Plan", "Meeting Script"],
     personality: "Mid 50s, 25 years as a business analyst. Patient, direct, plain English. “What decision changes if this number moves?”",
     model: "Opus",
     whyType: "In a live run there's no Ovy, so he interviews you in the main chat. In test runs he works under Ovy.",
@@ -272,6 +276,7 @@ const AGENTS = [
     command: ["started by Ovy"], skills: ["kpi-creator"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ToolSearch"], toolsNote: "", browser: [],
     scripts: ["check_spec.py", "describe_data.py"],
+    outputs: ["KPI Calculation Pack (calculation, baseline, pace needed, counter-metric for each KPI)", "Root Cause Findings", "Challenge notes", "Saved calculation script"],
     personality: "Early 30s, data engineer turned analytics lead. Cheerful, tenacious and stubborn about reproducibility. “Show me the baseline.”",
     model: "Sonnet",
     whyType: "She hands her Calculation Pack back to Ovy, who shows you.",
@@ -281,6 +286,7 @@ const AGENTS = [
     command: ["started by Ovy"], skills: ["kpi-creator", "dataviz"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ToolSearch", "Skill"], toolsNote: "", browser: ["navigate", "get_page_text", "read_page", "computer", "resize_window", "javascript_tool", "read_console_messages", "browser_batch", "find", "tabs_context"],
     scripts: ["dashboard_check.py"],
+    outputs: ["Story and chart check, before any HTML", "Standard dashboard (HTML)", "1 Experimental dashboard (Newspaper or Industry magazine)", "Desktop and phone screenshots"],
     personality: "Mid 30s, ex newsroom data journalist. Thinks in themes, visual and story-driven, and edits hard.",
     model: "Opus",
     whyType: "He returns dashboard options to Ovy for you to pick.",
@@ -290,6 +296,7 @@ const AGENTS = [
     command: ["started by Ovy"], skills: ["kpi-creator", "review-ux-standards", "review-html-standards"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ToolSearch", "Skill"], toolsNote: "", browser: ["navigate", "get_page_text", "read_page", "computer", "resize_window", "javascript_tool", "read_console_messages", "browser_batch", "find", "tabs_context"],
     scripts: ["dashboard_check.py"],
+    outputs: ["Finished first draft dashboard, ready for stakeholder review", "UX and Web Build standards check results", "Validation checklist", "Desktop and phone screenshots"],
     personality: "Early 40s, UX designer turned accessibility auditor. Precise and polished. “If it fails on a phone, it fails.”",
     model: "Sonnet",
     whyType: "She returns the finished draft to Ovy.",
@@ -299,6 +306,7 @@ const AGENTS = [
     command: ["/paige"], skills: ["update_AI_log", "update-kpi-end-to-end", "update-token-optimisation", "update-data-professional"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "ToolSearch", "Skill", "Artifact", "ArtifactData", "RemoteTrigger", "list_scheduled_tasks", "list_task_runs"], toolsNote: "", browser: ["preview_start", "navigate", "get_page_text", "read_page", "computer", "resize_window", "javascript_tool", "read_console_messages", "browser_batch", "find", "tabs_context"],
     scripts: ["page_status.py", "check_alignment.py", "scan_builds.py", "build_end_to_end_page.py", "publish_case.py", "portfolio_swarms.py", "token_report.py"],
+    outputs: ["Status board and combined report (numbered Before/After)", "Updated public pages, previewed, then live on your yes", "Alignment check result"],
     personality: "Your executive assistant. Early 30s, ex EA to a bank CEO. Witty, takes a joke and knows the line.",
     model: "Sonnet",
     whyType: "Every page update stops for your yes, so she asks you directly.",
@@ -308,6 +316,7 @@ const AGENTS = [
     command: ["/rezi"], skills: ["rezi"],
     tools: ["Read", "Write", "Edit", "Bash", "Glob", "Grep", "Skill", "ToolSearch", "WebFetch", "WebSearch", "SendUserFile"], toolsNote: "", browser: ["navigate", "get_page_text", "read_page", "computer"],
     scripts: ["parse_master.py", "build_resume.py", "build_cover_letter.py", "format_check.py", "compare_pdf.py", "trace_check.py", "refresh_career.py"],
+    outputs: ["Tailored resume (Word)", "Cover letter (Word)", "Role assessment (fit score, Apply or Skip), when asked", "Best contact table", "Hiring manager message with rationale", "Copies in the OneDrive Career folders"],
     personality: "Positions you accurately: every claim traces to your sources, and he asks before writing anything you haven't done.",
     model: "Opus",
     whyType: "He stops for your approval at each step and never sends, applies or contacts anyone.",
@@ -317,6 +326,7 @@ const AGENTS = [
     command: ["/build-company-brief"], skills: ["build-company-brief", "build-html-report"],
     tools: [], toolsNote: "All tools, no limit set. Mainly web search and web fetch for research, files and Bash to build the report.", browser: [],
     scripts: [],
+    outputs: ["Stage 1: one-page executive briefing, with pay and headcount", "Stage 2: full interview dossier (11 sections)", "Stage 3: top 5 experiences to lead with", "HTML interview brief, with infographic and share-price chart", "Optional extras you pick"],
     personality: "Lebanese Australian, late 30s, ex AFR business reporter. Curious and sceptical, digs past the press release. “What changed that made them hire for this now?”",
     model: "Default",
     whyType: "She researches on its own and hands back the briefing.",
@@ -419,6 +429,7 @@ function render() {
       <dl class="facts">
         <div><dt>Type</dt><dd><b>${esc(a.type)}</b><span class="reason">${esc(a.whyType)}</span></dd></div>
         <div><dt>Command</dt><dd>${list(a.command)}</dd></div>
+        <div><dt>Outputs</dt><dd><ul class="outs">${a.outputs.map(o => `<li>${esc(o)}</li>`).join("")}</ul></dd></div>
         <div><dt>Skills</dt><dd>${codes(a.skills)}</dd></div>
         <div><dt>Tools</dt><dd>${tools(a)}</dd></div>
         <div><dt>Scripts</dt><dd>${a.scripts.length ? codes(a.scripts) : "None"}</dd></div>
